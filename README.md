@@ -51,3 +51,15 @@ npm install
 npm run start       // to run the client in browser
 npm run simulate    // to run the client in simulation
 ```
+
+---
+
+## Pushing image
+
+__NOTE:__ Make sure to change the command in the `Dockerfile` before pushing out the relevant tag.
+
+```docker
+docker image build -t ese-client:tag
+docker image tag ese-client:tag saumyabhatt10642/ese-client:tag
+docker push saumyabhatt10642/ese-client:tag
+```
