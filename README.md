@@ -10,7 +10,11 @@ Currently, the client emits 2 types of events. Click based events and order stat
 
 Run the project to understand more about these events in detail.
 
-The order state change events are streamed instantly while the click based events are streamed in a buffered manner (in buckets of 10 - [code](./src/usecases/utilities/PushEventsToBroker.mjs))
+### Notes
+
+- The order state change events are streamed instantly while the click based events are streamed in a buffered manner (in buckets of 10 - [code](./src/usecases/utilities/PushEventsToBroker.mjs))
+
+- The simulation node will emmit at most 50,000 events with a delay of minimum 300s between each event - [code](./src/usecases/simulation/SimulateTraffic.mjs)
 
 ---
 
