@@ -10,4 +10,4 @@ COPY package.json /client/
 
 RUN npm install
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "simulate" ]
