@@ -24,16 +24,14 @@ Run the project to understand more about these events in detail.
 
 Make sure docker is running and you are logged in. Run the below given commands in order. The application will start running on `localhost:8000`
 
-[DockerHub Repo](https://hub.docker.com/repository/docker/saumyabhatt10642/ese-client/general)
-
-```docker
+```bash
 docker image pull saumyabhatt10642/ese-client
 docker image run -it -p 8000:3000 --name ese-client-container saumyabhatt10642/ese-client
 ```
 
 In order to run the simulation, download the same image with the `simulate` tag and run it.
 
-```docker
+```bash
 docker image pull saumyabhatt10642/ese-client:simulate
 docker image run -it -p 8080:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
@@ -44,7 +42,7 @@ docker image run -it -p 8080:3000 --name ese-client-simulator-container saumyabh
 
 If you don't have docker, one can simply run the following commands using npm.
 
-```terminal
+```bash
 npm install
 npm run start       // to run the client in browser
 npm run simulate    // to run the client in simulation
@@ -56,8 +54,10 @@ npm run simulate    // to run the client in simulation
 
 __NOTE:__ Make sure to change the command in the `Dockerfile` before pushing out the relevant tag.
 
-```docker
-docker image build -t ese-client:tag
+[DockerHub Repository](https://hub.docker.com/repository/docker/saumyabhatt10642/ese-client/general)
+
+```bash
+docker image build -t ese-client:tag .
 docker image tag ese-client:tag saumyabhatt10642/ese-client:tag
 docker push saumyabhatt10642/ese-client:tag
 ```
