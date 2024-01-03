@@ -2,6 +2,8 @@
 
 This is the client facing part of the Event-Streaming Example. This repo can be used to understand what type of events would be produced by our frontend and can also be used to simulate them in large numbers.
 
+_Note_ : Switch to `simulate` branch to get the docker file for `simulate` tag
+
 ---
 
 ## Overview
