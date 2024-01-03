@@ -24,29 +24,27 @@ Run the project to understand more about these events in detail.
 
 ### Using Docker
 
-Make sure docker is running and you are logged in. Run the below given commands in order. The application will start running on `localhost:8000`
+Make sure Docker is running and you are logged in. Run the below-given commands in order. The application will start running on `localhost:8000`
 
 ```bash
-docker image pull saumyabhatt10642/ese-client
-docker image run -it -p 8000:3000 --name ese-client-container saumyabhatt10642/ese-client
+docker run -it -p 8000:3000 --name ese-client-container saumyabhatt10642/ese-client
 ```
 
 In order to run the simulation, download the same image with the `simulate` tag and run it.
 
 ```bash
-docker image pull saumyabhatt10642/ese-client:simulate
-docker image run -it -p 8080:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
+docker run -it -p 8080:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---
 
 ### Using NPM
 
-If you don't have docker, one can simply run the following commands using npm.
+If you don't have docker, you can simply run the following commands using npm.
 
 ```bash
 npm install
-npm run start       // to run the client in browser
+npm run start       // to run the client in the browser
 npm run simulate    // to run the client in simulation
 ```
 
