@@ -27,13 +27,13 @@ Run the project to understand more about these events in detail.
 Make sure Docker is running and you are logged in. Run the below-given commands in order. The application will start running on `localhost:8000`
 
 ```bash
-docker run -it -p 8000:3000 --name ese-client-container saumyabhatt10642/ese-client
+docker run -it -p 3000:3000 --name ese-client-container saumyabhatt10642/ese-client
 ```
 
 In order to run the simulation, download the same image with the `simulate` tag and run it.
 
 ```bash
-docker run -it -p 8080:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
+docker run -it -p 3000:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---
