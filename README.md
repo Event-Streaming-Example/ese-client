@@ -4,15 +4,12 @@ This is the client facing part of the Event-Streaming Example. This repo can be 
 
 _Note_ : Switch to `simulate` branch to get the docker file for `simulate` tag
 
+- **Language :** [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
+- **Library :** [React](https://react.dev/reference/react)
+
 ---
 
-## Overview
-
-Currently, the client emits 2 types of events. Click based events and order state change events. The purpose of this repo is to simulate them and hence provide as a source for us to test our streaming pipeline.
-
-Run the project to understand more about these events in detail.
-
-### Notes
+## Things to Note
 
 - The order state change events are streamed instantly while the click based events are streamed in a buffered manner (in buckets of 10 - [code](./src/usecases/utilities/PushEventsToBroker.mjs))
 
@@ -20,27 +17,18 @@ Run the project to understand more about these events in detail.
 
 ---
 
-## Setting up
-
-### Using Docker
-
-Make sure Docker is running and you are logged in. Run the below-given commands in order. The application will start running on `localhost:8000`
+## Running via Docker
 
 ```bash
 docker run -it -p 3000:3000 --name ese-client-container saumyabhatt10642/ese-client
-```
 
-In order to run the simulation, download the same image with the `simulate` tag and run it.
-
-```bash
+// to run the simulation
 docker run -it -p 3000:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---
 
-### Using NPM
-
-If you don't have docker, you can simply run the following commands using npm.
+## Running Locally
 
 ```bash
 npm install
@@ -52,7 +40,7 @@ npm run simulate    // to run the client in simulation
 
 ## Pushing image
 
-__NOTE:__ Make sure to change the command in the `Dockerfile` before pushing out the relevant tag.
+**NOTE:** Make sure to change the command in the `Dockerfile` before pushing out the relevant tag.
 
 [DockerHub Repository](https://hub.docker.com/repository/docker/saumyabhatt10642/ese-client/general)
 
