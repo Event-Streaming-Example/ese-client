@@ -4,5 +4,6 @@ const THIRD_PARTY_URL = "https://api.ipify.org/?format=json"
 
 export default async function getDeviceIPAddress() {
     const res = await axios.get(THIRD_PARTY_URL);
-    return res.data.ip;
+    const appNo = Math.floor(Math.random() * 10) + 1
+    return res.data.ip + "-" + appNo;
 };
