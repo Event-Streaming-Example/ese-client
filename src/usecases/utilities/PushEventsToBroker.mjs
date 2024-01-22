@@ -1,8 +1,14 @@
 import { CLICK_STREAM_EVENT } from "../../entities/EventType.mjs"
 import axios from "axios"
+import dotenv from 'dotenv';
 
+dotenv.config();
+const BUFFERED_STORAGE_LIMIT = process.env.REACT_APP_BUFFERED_STORAGE_LIMIT
+const server_url = process.env.REACT_APP_SERVER_URL
+const buffered_push = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
 let bufferedStorage = []
-const BUFFERED_STORAGE_LIMIT = 5
+
+console.log(process.env)
 // const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/"
 
 async function makeApiCall(url, payload) {
@@ -14,19 +20,21 @@ async function makeApiCall(url, payload) {
 }
 
 export default async function pushEventsToBroker(eventPayload) {
-    const server_url = process.env.REACT_APP_BE_SERVER
-
-    if (eventPayload.eventType === CLICK_STREAM_EVENT) {
-        bufferedStorage.push(eventPayload)
-        if (bufferedStorage.length >= BUFFERED_STORAGE_LIMIT) {
-            const bufferedData = bufferedStorage
-            bufferedStorage = []
-            console.log(await makeApiCall(server_url + "/events", { "events": bufferedData }))
-            return 1
-        } else {
-            return 0
+    if (buffered_push === 'true') {
+        if (eventPayload.eventType === CLICK_STREAM_EVENT) {
+            bufferedStorage.push(eventPayload)
+            if (bufferedStorage.length >= BUFFERED_STORAGE_LIMIT) {
+                const bufferedData = bufferedStorage
+                bufferedStorage = []
+                await makeApiCall(server_url + "/events", { "events": bufferedData })
+                console.log("Pushed events : ", bufferedData)
+                return 1
+            } else {
+                return 0
+            }
         }
     }
-    console.log(await makeApiCall(server_url + "/event", eventPayload))
+    await makeApiCall(server_url + "/event", eventPayload)
+    console.log("Pushed event : ", eventPayload)
     return 1
 }

@@ -1,7 +1,10 @@
 import simulateClickStreams from './SimulateClickStreams.mjs';
 import simulateDummyOrderLifeCycle from './SimulateDummyOrderLifeCycle.mjs';
+import dotenv from 'dotenv';
 
-const EVENT_COUNTER_LIMIT = 50000
+dotenv.config();
+const EVENT_COUNTER_HARD_LIMIT = process.env.REACT_APP_EVENT_COUNTER_HARD_LIMIT;
+const EVENT_DELAY_IN_MILlIS = process.env.REACT_APP_EVENT_DELAY_IN_MILLIS;
 
 let eventCounter = 0
 let publisherInvocationCounter = 0
@@ -33,8 +36,8 @@ function createInfiniteLoop() {
     setTimeout(() => {
         simulateDummyOrderLifeCycleWithDisruption()
         simulateClickStreamsWithExcess()
-        if (eventCounter < EVENT_COUNTER_LIMIT) createInfiniteLoop()
-    }, 300);
+        if (eventCounter < EVENT_COUNTER_HARD_LIMIT) createInfiniteLoop()
+    }, EVENT_DELAY_IN_MILlIS);
 }
 
 createInfiniteLoop()
