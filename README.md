@@ -30,6 +30,16 @@ docker run -it -p 3000:3000 --name ese-client-simulator-container saumyabhatt106
 
 ## Running Locally
 
+Before running, we must point our frontend to the backend. Assuming our backend is running on `http://localhost:2001`, we would be setting it as below:
+
+```bash
+# setting environment variable in windows
+($env:REACT_APP_BE_SERVER = "http://localhost:2001")
+
+# setting environment variable in macOS
+export REACT_APP_BE_SERVER=http://localhost:2001
+```
+
 ```bash
 npm install
 npm run start       // to run the client in the browser
