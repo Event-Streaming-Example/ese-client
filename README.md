@@ -9,38 +9,22 @@ _Note_ : Switch to `simulate` branch to get the docker file for `simulate` tag
 
 ---
 
-## Things to Note
-
-- The order state change events are streamed instantly while the click based events are streamed in a buffered manner (in buckets of 10 - [code](./src/usecases/utilities/PushEventsToBroker.mjs))
-
-- The simulation node will emmit at most 50,000 events with a delay of minimum 300s between each event - [code](./src/usecases/simulation/SimulateTraffic.mjs)
-
----
-
 ## Running via Docker
 
-Set the environment variable `REACT_APP_BE_SERVER` such that it points to where our backend is running. Once done, our app will run on `http://localhost:3006`.
+Set the desired configs in the `.env` file before running the below commands.
 
 ```bash
-docker run -it -p 3006:3006 -e REACT_APP_BE_SERVER=http://localhost:2001 --name ese-client-container saumyabhatt10642/ese-client
+docker run -it -p 3006:3006 --env-file .env --name ese-client-container saumyabhatt10642/ese-client
 
 // to run the simulation
-docker run -it -p 3006:3006 -e REACT_APP_BE_SERVER=http://localhost:2001 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
+docker run -it -p 3006:3006 --env-file .env --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---
 
 ## Running Locally
 
-Before running, we must point our frontend to the backend. Assuming our backend is running on `http://localhost:2001`, we would be setting it as below. Once done, our app will run on `http://localhost:3006`.
-
-```bash
-# setting environment variable in windows
-($env:REACT_APP_BE_SERVER = "http://localhost:2001")
-
-# setting environment variable in macOS
-export REACT_APP_BE_SERVER=http://localhost:2001
-```
+Set the desired configs in the `.env` file before running the below commands.
 
 ```bash
 npm install
