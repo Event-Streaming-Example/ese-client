@@ -19,18 +19,20 @@ _Note_ : Switch to `simulate` branch to get the docker file for `simulate` tag
 
 ## Running via Docker
 
+Set the environment variable `REACT_APP_BE_SERVER` such that it points to where our backend is running. Once done, our app will run on `http://localhost:3006`.
+
 ```bash
-docker run -it -p 3000:3000 --name ese-client-container saumyabhatt10642/ese-client
+docker run -it -p 3006:3006 -e REACT_APP_BE_SERVER=http://localhost:2001 --name ese-client-container saumyabhatt10642/ese-client
 
 // to run the simulation
-docker run -it -p 3000:3000 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
+docker run -it -p 3006:3006 -e REACT_APP_BE_SERVER=http://localhost:2001 --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---
 
 ## Running Locally
 
-Before running, we must point our frontend to the backend. Assuming our backend is running on `http://localhost:2001`, we would be setting it as below:
+Before running, we must point our frontend to the backend. Assuming our backend is running on `http://localhost:2001`, we would be setting it as below. Once done, our app will run on `http://localhost:3006`.
 
 ```bash
 # setting environment variable in windows
