@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import io from 'socket.io-client';
 
 dotenv.config();
-const socket_url = process.env.REACT_APP_SOCKET_URL
+const socket_url = process.env.REACT_APP_SERVER_URL + "/websocket"
 const BUFFERED_STORAGE_LIMIT = process.env.REACT_APP_BUFFERED_STORAGE_LIMIT
 const buffered_push = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
 let bufferedStorage = []
