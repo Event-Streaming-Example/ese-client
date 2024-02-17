@@ -9,13 +9,13 @@ This is the client-facing part of the Event-Streaming Example. This repo can be 
 
 ## Running via Docker
 
-Set the desired configs in the `.env` file before running the below commands.
+For the Standalone app (with the UI), the static files would be served from a NGINX server. Set the desired configs in the `.env` file before running the below commands.
 
 ```bash
-docker run -it -p 3006:3006 --env-file .env --name ese-client-container saumyabhatt10642/ese-client
+docker run -d -p 8080:80 --env-file .env --name ese-client-container saumyabhatt10642/ese-client
 
 // to run the simulation
-docker run -it -p 3006:3006 --env-file .env --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
+docker run -it --env-file .env --name ese-client-simulator-container saumyabhatt10642/ese-client:simulate
 ```
 
 ---

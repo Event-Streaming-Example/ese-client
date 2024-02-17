@@ -1,13 +1,21 @@
-FROM node:16.15.0
+FROM node:16.15.0 AS build
 
 LABEL ese.image.author="saumyabhatt10642"
 
-WORKDIR /client
+WORKDIR /app
 
-COPY public/ /client/public
-COPY src/ /client/src
-COPY package.json /client/
+COPY package*.json ./
 
 RUN npm install
 
-CMD [ "npm", "run", "start" ]
+COPY . .
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
