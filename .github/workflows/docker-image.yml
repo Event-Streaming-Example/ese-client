@@ -23,26 +23,13 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
     - name: Build latest Docker image
-      run: docker build . --file Dockerfile --tag saumyabhatt10642/ese-client
+      run: docker build . --file Standalone.Dockerfile --tag saumyabhatt10642/ese-client
 
     - name: Push the latest image to DockerHub
       run: docker push saumyabhatt10642/ese-client
-    
-    - name: Set Git config
-      run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "Github Actions"
-          
-    - name: Merge master back to simulate
-      run: |
-          git fetch --unshallow
-          git checkout simulate
-          git pull
-          git merge --no-ff master -m "Auto-merge master back to simulate"
-          git push
 
     - name: Build Simulate Docker image
-      run: docker build . --file Dockerfile --tag saumyabhatt10642/ese-client:simulate
+      run: docker build . --file Simulate.Dockerfile --tag saumyabhatt10642/ese-client:simulate
 
     - name: Push the simulate image to DockerHub
       run: docker push saumyabhatt10642/ese-client:simulate
