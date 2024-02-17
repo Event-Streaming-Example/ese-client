@@ -1,8 +1,6 @@
 # ESE Client
 
-This is the client facing part of the Event-Streaming Example. This repo can be used to understand what type of events would be produced by our frontend and can also be used to simulate them in large numbers.
-
-_Note_ : Switch to `simulate` branch to get the docker file for `simulate` tag
+This is the client-facing part of the Event-Streaming Example. This repo can be used to understand what type of events would be produced by our front end and can also be used to simulate them in large numbers.
 
 - **Language :** [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
 - **Library :** [React](https://react.dev/reference/react)
@@ -36,7 +34,7 @@ npm run simulate    // to run the client in simulation
 
 ## Pushing image
 
-**NOTE:** Make sure to change the command in the `Dockerfile` before pushing out the relevant tag.
+Pushing any changes to the master will automatically trigger a GitHub action to push the docker images `latest` and `simulate` to DockerHub. If however one needs to push an image with a different tag, they may do so by running the below given commands:
 
 [DockerHub Repository](https://hub.docker.com/repository/docker/saumyabhatt10642/ese-client/general)
 
