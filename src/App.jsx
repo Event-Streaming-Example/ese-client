@@ -1,4 +1,4 @@
-import pushEventsToBrokers from "./usecases/utilities/PushEventsToBroker.mjs";
+import publishEventsToBrokers from "./usecases/utilities/StreamEvents.mjs";
 import ClickStreamView from "./usecases/clickStream/ClickStreamView";
 import StateChangeView from "./usecases/stateChange/StateChangeView";
 import getDeviceIPAddress from "./usecases/utilities/GetDeviceIPAddress.mjs";
@@ -15,7 +15,7 @@ function App() {
 
   function onEventCreationHandler(eventType, data) {
     const eventPayload = createEventPayload(eventType, ip, data);
-    pushEventsToBrokers(eventPayload);
+    publishEventsToBrokers(eventPayload);
     setEventLogs((prevLogs) => [...prevLogs, eventPayload]);
   }
 
