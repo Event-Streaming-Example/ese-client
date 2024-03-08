@@ -15,7 +15,7 @@ export default function StateChangeView({ onChangeHandler }) {
   function changeOrderState(updatedState) {
     const orderEventBlock = {
       orderId: orderId,
-      state: updatedState,
+      event: updatedState,
       timestamp: Date.now(),
     };
     onChangeHandler(ORDER_STATE_UPDATE_EVENT, orderEventBlock);
