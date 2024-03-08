@@ -5,6 +5,8 @@ This is the client-facing part of the Event-Streaming Example. This repo can be 
 - **Language :** [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
 - **Library :** [React](https://react.dev/reference/react)
 
+![Screen shot](./ss.png)
+
 ---
 
 ## Running via Docker
