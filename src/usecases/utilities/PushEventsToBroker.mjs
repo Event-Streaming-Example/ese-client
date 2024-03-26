@@ -8,7 +8,6 @@ const server_url = process.env.REACT_APP_SERVER_URL
 const buffered_push = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
 let bufferedStorage = []
 
-console.log(process.env)
 // const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/"
 
 async function makeApiCall(url, payload) {

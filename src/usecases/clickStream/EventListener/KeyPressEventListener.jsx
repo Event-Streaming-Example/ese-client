@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { KEY_PRESS_EVENT } from "../../../entities/Events.mjs";
+import { CLICK_STREAM_EVENT } from "../../../entities/EventType.mjs";
+import { KEY_PRESS_EVENT } from "../../../entities/EventSubType.mjs";
 
 export default function KeyPressEventListener(props) {
   const [counter, setCounter] = useState(0);
@@ -8,7 +9,7 @@ export default function KeyPressEventListener(props) {
     const handleKeyPress = (event) => {
       if (event.key.toUpperCase() === "F") {
         setCounter((prevCounter) => prevCounter + 1);
-        props.onChangeHandler(props.eventType, { event: KEY_PRESS_EVENT });
+        props.onChangeHandler(CLICK_STREAM_EVENT, KEY_PRESS_EVENT, {});
       }
     };
     window.addEventListener("keydown", handleKeyPress);

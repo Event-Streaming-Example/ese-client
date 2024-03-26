@@ -4,7 +4,7 @@ import {
   ORDER_ALLOCATED,
   ORDER_STARTED,
   ORDER_COMPLETED,
-} from "../../entities/Events.mjs";
+} from "../../entities/EventSubType.mjs";
 import { ORDER_STATE_UPDATE_EVENT } from "../../entities/EventType.mjs";
 import generateUUID from "../utilities/GenerateUUID.mjs";
 
@@ -15,10 +15,9 @@ export default function StateChangeView({ onChangeHandler }) {
   function changeOrderState(updatedState) {
     const orderEventBlock = {
       orderId: orderId,
-      event: updatedState,
       timestamp: Date.now(),
     };
-    onChangeHandler(ORDER_STATE_UPDATE_EVENT, orderEventBlock);
+    onChangeHandler(ORDER_STATE_UPDATE_EVENT, updatedState, orderEventBlock);
     setState(orderEventBlock);
   }
 

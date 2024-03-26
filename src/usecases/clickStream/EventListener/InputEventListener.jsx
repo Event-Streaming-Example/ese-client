@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { INPUT_PASSED_EVENT } from "../../../entities/Events.mjs";
+import { CLICK_STREAM_EVENT } from "../../../entities/EventType.mjs";
+import { INPUT_PASSED_EVENT } from "../../../entities/EventSubType.mjs";
 
-export default function InputEventListener({ onChangeHandler, eventType }) {
+export default function InputEventListener({ onChangeHandler }) {
   const [inputEvent, setInputEvent] = useState(0);
 
   const handleInputValueChange = (event) => {
@@ -9,7 +10,7 @@ export default function InputEventListener({ onChangeHandler, eventType }) {
 
     const newInputEvent = value.trim() === "" ? 0 : 1;
     if (inputEvent === 0 && newInputEvent === 1)
-      onChangeHandler(eventType, { event: INPUT_PASSED_EVENT });
+      onChangeHandler(CLICK_STREAM_EVENT, INPUT_PASSED_EVENT, {});
     setInputEvent(newInputEvent);
   };
 

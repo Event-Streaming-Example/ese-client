@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { BUTTON_CLICK_EVENT } from "../../../entities/Events.mjs";
+import { CLICK_STREAM_EVENT } from "../../../entities/EventType.mjs";
+import { BUTTON_CLICK_EVENT } from "../../../entities/EventSubType.mjs";
 
-export default function ButtonEventListener({ onChangeHandler, eventType }) {
+export default function ButtonEventListener({ onChangeHandler }) {
   const [clickEvent, setClickEvent] = useState(0);
 
-  const handleStateChange = (event) => {
+  const handleStateChange = () => {
     setClickEvent(clickEvent + 1);
-    onChangeHandler(eventType, { event: BUTTON_CLICK_EVENT });
+    onChangeHandler(CLICK_STREAM_EVENT, BUTTON_CLICK_EVENT, {});
   };
 
   return (

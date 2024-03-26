@@ -1,5 +1,5 @@
 import { CLICK_STREAM_EVENT } from "../../entities/EventType.mjs";
-import { INPUT_PASSED_EVENT, BUTTON_CLICK_EVENT, KEY_PRESS_EVENT } from "../../entities/Events.mjs";
+import { INPUT_PASSED_EVENT, BUTTON_CLICK_EVENT, KEY_PRESS_EVENT } from "../../entities/EventSubType.mjs";
 import createEventPayload from "../utilities/CreateEventPayload.mjs";
 import getDeviceIPAddress from "../utilities/GetDeviceIPAddress.mjs";
 import pushEventsToBroker from "../utilities/PushEventsToBroker.mjs";
@@ -9,7 +9,7 @@ let publisherInvocations = 0
 let eventCounter = 0
 
 async function invokePushEventToBroker(ipAddress, event) {
-    const eventPayload = createEventPayload(CLICK_STREAM_EVENT, ipAddress, { 'event': event })
+    const eventPayload = createEventPayload(CLICK_STREAM_EVENT, event, ipAddress, {})
     pushEventsToBroker(eventPayload).then((result) => {
         publisherInvocations += result
         eventCounter += 1

@@ -13,8 +13,8 @@ function App() {
     getDeviceIPAddress().then((ip) => setIP(ip));
   }, []);
 
-  function onEventCreationHandler(eventType, data) {
-    const eventPayload = createEventPayload(eventType, ip, data);
+  function onEventCreationHandler(eventType, eventSubType, data) {
+    const eventPayload = createEventPayload(eventType, eventSubType, ip, data);
     pushEventsToBrokers(eventPayload);
     setEventLogs((prevLogs) => [...prevLogs, eventPayload]);
   }

@@ -3,8 +3,6 @@ import ButtonEventListener from "./EventListener/ButtonEventListener";
 import InputEventListener from "./EventListener/InputEventListener";
 import KeyPressEventListener from "./EventListener/KeyPressEventListener";
 
-import { CLICK_STREAM_EVENT } from "../../entities/EventType.mjs";
-
 export default function ClickStreamView({ onChangeHandler }) {
   return (
     <div>
@@ -22,18 +20,9 @@ export default function ClickStreamView({ onChangeHandler }) {
           </tr>
         </thead>
         <tbody>
-          <ButtonEventListener
-            onChangeHandler={onChangeHandler}
-            eventType={CLICK_STREAM_EVENT}
-          />
-          <InputEventListener
-            onChangeHandler={onChangeHandler}
-            eventType={CLICK_STREAM_EVENT}
-          />
-          <KeyPressEventListener
-            onChangeHandler={onChangeHandler}
-            eventType={CLICK_STREAM_EVENT}
-          />
+          <ButtonEventListener onChangeHandler={onChangeHandler} />
+          <InputEventListener onChangeHandler={onChangeHandler} />
+          <KeyPressEventListener onChangeHandler={onChangeHandler} />
         </tbody>
       </table>
     </div>

@@ -1,8 +1,17 @@
-export default function createEventPayload(eventType, ip, data) {
+
+function createEvent(eventType, eventSubType) {
     return {
-        "event_type": eventType,
+        "type": eventType,
+        "sub_type": eventSubType
+    };
+}
+
+export default function createEventPayload(eventType, eventSubType, ip, data) {
+    let event = createEvent(eventType, eventSubType);
+    return {
+        "event": event,
         "timestamp": Date.now(),
         "ip": ip,
         "data": data
-    }
+    };
 }
