@@ -1,8 +1,8 @@
 import pushEventsToBackend from "./workers/PushEventsToBackend.mjs";
 import ClickStreamView from "./usecases/clickStream/ClickStreamView";
 import StateChangeView from "./usecases/stateChange/StateChangeView";
-import getDeviceIPAddress from "./usecases/utilities/GetDeviceIPAddress.mjs";
-import createEventPayload from "./usecases/utilities/CreateEventPayload.mjs";
+import getDeviceIPAddress from "./utilities/GetDeviceIPAddress.mjs";
+import createEventPayload from "./utilities/CreateEventPayload.mjs";
 
 import React, { useState, useEffect } from "react";
 

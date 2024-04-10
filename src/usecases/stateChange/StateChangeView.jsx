@@ -6,7 +6,7 @@ import {
   ORDER_COMPLETED,
 } from "../../entities/EventSubType.mjs";
 import { ORDER_STATE_UPDATE_EVENT } from "../../entities/EventType.mjs";
-import generateUUID from "../utilities/GenerateUUID.mjs";
+import generateUUID from "../../utilities/GenerateUUID.mjs";
 
 export default function StateChangeView({ onChangeHandler }) {
   const [state, setState] = useState({});

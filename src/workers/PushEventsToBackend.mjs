@@ -1,4 +1,4 @@
-import { CLICK_STREAM_EVENT } from "../../entities/EventType.mjs"
+import { CLICK_STREAM_EVENT } from "../entities/EventType.mjs"
 import axios from "axios"
 import dotenv from 'dotenv';
 
