@@ -1,10 +1,10 @@
-import generateUUID from '../utilities/GenerateUUID.mjs';
-import pushEventsToBroker from '../utilities/PushEventsToBroker.mjs';
-import getDeviceIPAddress from '../utilities/GetDeviceIPAddress.mjs';
+import generateUUID from '../../utilities/GenerateUUID.mjs';
+import pushEventsToBackend from '../../workers/PushEventsToBackend.mjs'
+import getDeviceIPAddress from '../../utilities/GetDeviceIPAddress.mjs';
 
 import { ORDER_CREATED, ORDER_ALLOCATED, ORDER_STARTED, ORDER_COMPLETED } from '../../entities/EventSubType.mjs';
 import { ORDER_STATE_UPDATE_EVENT } from "../../entities/EventType.mjs";
-import createEventPayload from '../utilities/CreateEventPayload.mjs';
+import createEventPayload from '../../utilities/CreateEventPayload.mjs';
 import simulationResult from './SimulationResult.mjs';
 
 let publisherInvocations = 0
@@ -15,7 +15,7 @@ async function createAndPushDummyOrderEvent(orderId, state) {
     const ip = await getDeviceIPAddress()
     const eventPayload = createEventPayload(ORDER_STATE_UPDATE_EVENT, state, ip, data)
     eventCounter += 1
-    publisherInvocations += await pushEventsToBroker(eventPayload)
+    publisherInvocations += await pushEventsToBackend(eventPayload)
 }
 
 async function withDelayPushDummyState(orderId, orderState, timeout) {

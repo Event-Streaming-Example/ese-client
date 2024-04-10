@@ -18,7 +18,7 @@ async function makeApiCall(url, payload) {
     })
 }
 
-export default async function pushEventsToBroker(eventPayload) {
+export default async function pushEventsToBackend(eventPayload) {
     if (buffered_push === 'true') {
         if (eventPayload.eventType === CLICK_STREAM_EVENT) {
             bufferedStorage.push(eventPayload)
