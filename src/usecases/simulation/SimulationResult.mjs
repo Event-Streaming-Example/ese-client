@@ -1,7 +1,8 @@
 
-export default function simulationResult(events, invocations) {
+export default function simulationResult(events, serverInvocations, kafkaInvocations) {
     return {
         "events": events,
-        "invocations": invocations
+        "server_invocations": serverInvocations,
+        "kafka_invocations": kafkaInvocations
     }
 }

@@ -11,13 +11,19 @@ const PRODUCER = new Kafka({
 }).producer()
 
 export default async function pushWebEventToKafkaBroker(eventType, data) {
-    let [topic, _] = eventMapper(eventType)
-    await PRODUCER.connect()
-    await PRODUCER.send({
-        topic: topic,
-        messages: [{ value: JSON.stringify(data) },],
-    })
-    await PRODUCER.disconnect()
+    try {
+        let [topic, _] = await eventMapper(eventType)
+        await PRODUCER.connect()
+        await PRODUCER.send({
+            topic: topic,
+            messages: [{ value: JSON.stringify(data) },],
+        })
+        await PRODUCER.disconnect()
+        return 1
+    } catch (error) {
+        console.log(`ERROR : ${error}`)
+        return 0
+    }
 }
 
 pushWebEventToKafkaBroker(CLICK_STREAM_EVENT, createKafkaEventPayload(BUTTON_CLICK_EVENT, "192.169.80.787", {}))

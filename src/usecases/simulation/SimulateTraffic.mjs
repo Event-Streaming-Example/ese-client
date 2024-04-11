@@ -4,7 +4,8 @@ import simulateDummyOrderLifeCycle from './SimulateDummyOrderLifeCycle.mjs';
 
 
 let eventCounter = 0
-let publisherInvocationCounter = 0
+let serverInvocationCounter = 0
+let kafkaInvocationCounter = 0
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -16,7 +17,8 @@ function simulateDummyOrderLifeCycleWithDisruption() {
     if (random % 2 === 0) orderCycleDisrupt = true
     simulateDummyOrderLifeCycle(orderCycleDisrupt).then((result) => {
         eventCounter += result.events
-        publisherInvocationCounter += result.invocations
+        serverInvocationCounter += result.server_invocations
+        kafkaInvocationCounter += result.kafka_invocations
     })
 }
 
@@ -24,7 +26,8 @@ function simulateClickStreamsWithExcess() {
     const random = getRandomInt(0, 8)
     simulateClickStreams(random).then((result) => {
         eventCounter += result.events
-        publisherInvocationCounter += result.invocations
+        serverInvocationCounter += result.server_invocations
+        kafkaInvocationCounter += result.kafka_invocations
     })
 }
 
@@ -41,6 +44,7 @@ createInfiniteLoop()
 
 process.on('SIGINT', function () {
     console.log(`Events created:\t\t${eventCounter}`)
-    console.log(`Publisher Invocations:\t${publisherInvocationCounter}`)
+    console.log(`Server Invocations:\t${serverInvocationCounter}`)
+    console.log(`Kafka Invocations:\t${kafkaInvocationCounter}`)
     process.exit();
 });

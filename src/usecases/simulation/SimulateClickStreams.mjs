@@ -1,17 +1,26 @@
 import { CLICK_STREAM_EVENT } from "../../entities/EventType.mjs";
 import { INPUT_PASSED_EVENT, BUTTON_CLICK_EVENT, KEY_PRESS_EVENT } from "../../entities/EventSubType.mjs";
-import createEventPayload from "../../utilities/CreateEventPayload.mjs";
+import createEventPayload, { createKafkaEventPayload } from "../../utilities/CreateEventPayload.mjs";
 import getDeviceIPAddress from "../../utilities/GetDeviceIPAddress.mjs";
 import pushEventsToBackend from "../../workers/PushEventsToBackend.mjs"
 import simulationResult from "./SimulationResult.mjs";
+import pushWebEventToKafkaBroker from "../../workers/PushEventToKafkaBrokers.mjs";
 
-let publisherInvocations = 0
+let pushToServerInvocation = 0
+let pushToKafkaInvocation = 0
 let eventCounter = 0
 
 async function invokePushEventToBroker(ipAddress, event) {
     const eventPayload = createEventPayload(CLICK_STREAM_EVENT, event, ipAddress, {})
+    const kafkaEventPayload = createKafkaEventPayload(event, ipAddress, {})
+
     pushEventsToBackend(eventPayload).then((result) => {
-        publisherInvocations += result
+        pushToServerInvocation += result
+        eventCounter += 1
+    })
+
+    pushWebEventToKafkaBroker(CLICK_STREAM_EVENT, kafkaEventPayload).then((result) => {
+        pushToKafkaInvocation += result
         eventCounter += 1
     })
 }
@@ -33,5 +42,5 @@ export default async function simulateClickStreams(random) {
     else if (random % 3 == 0) repeatFunction(random, ip, BUTTON_CLICK_EVENT)
     else repeatFunction(random, ip, KEY_PRESS_EVENT)
 
-    return simulationResult(eventCounter, publisherInvocations)
+    return simulationResult(eventCounter, pushToServerInvocation, pushToKafkaInvocation)
 }

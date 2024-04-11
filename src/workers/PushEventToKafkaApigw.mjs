@@ -20,8 +20,14 @@ async function pushEvent(topic, schema, data) {
 
 
 export async function pushEventToKafkaApigw(eventType, data) {
-    let [topic, schema_value] = eventMapper(eventType)
-    pushEvent(topic, schema_value, data)
+    try {
+        let [topic, schema_value] = await eventMapper(eventType)
+        pushEvent(topic, schema_value, data)
+        return 1
+    } catch (error) {
+        console.log(`ERROR : ${error}`)
+        return 0
+    }
 }
 
 
