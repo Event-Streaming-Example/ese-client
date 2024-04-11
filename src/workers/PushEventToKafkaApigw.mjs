@@ -25,8 +25,7 @@ export async function pushEventToKafkaApigw(eventType, data) {
 }
 
 
-let data1 = createKafkaEventPayload(KEY_PRESS_EVENT, "192.169.80.787", {})
-let data2 = createKafkaEventPayload(ORDER_ALLOCATED, "192.169.80.787", { "order_id": "CRN135" })
 
-pushEventToKafkaApigw(CLICK_STREAM_EVENT, data1)
-pushEventToKafkaApigw(ORDER_STATE_UPDATE_EVENT, data2)
+pushEventToKafkaApigw(CLICK_STREAM_EVENT, createKafkaEventPayload(KEY_PRESS_EVENT, "192.169.80.787", {}))
+
+pushEventToKafkaApigw(ORDER_STATE_UPDATE_EVENT, createKafkaEventPayload(ORDER_ALLOCATED, "192.169.80.787", { "order_id": "CRN135" }))

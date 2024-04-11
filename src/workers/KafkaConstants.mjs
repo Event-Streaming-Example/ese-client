@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 export const KAFKA_CLUSTER_IP = process.env.REACT_APP_KAFKA_CLUSTER_IP
 export const KAFKA_CLUSTER_PORT = process.env.REACT_APP_KAFKA_CLUSTER_APIGW_PORT
+export const KAFKA_CLIENT_ID = process.env.REACT_APP_KAFKA_CLIENT_ID
+export const KAFKA_BROKERS = process.env.REACT_APP_KAFKA_CLUSTER_BROKERS
 
 export const CLICK_EVENT_TOPIC = "click-events"
 export const ORDER_EVENT_TOPIC = "order-events"

@@ -1,28 +1,25 @@
 import { Kafka } from 'kafkajs'
-import dotenv from 'dotenv';
-
-dotenv.config();
-const KAFKA_CLUSTER_IP = process.env.REACT_APP_KAFKA_CLUSTER_IP
-const KAFKA_WEB_EVENTS_TOPIC = process.env.REACT_APP_KAFKA_WEB_EVENTS_TOPIC
-const KAFKA_CLIENT_ID = process.env.REACT_APP_KAFKA_CLIENT_ID
-const KAFKA_BROKERS_PORT = process.env.REACT_APP_KAFKA_CLUSTER_BROKERS
+import { createKafkaEventPayload } from '../utilities/CreateEventPayload.mjs'
+import { CLICK_STREAM_EVENT, ORDER_STATE_UPDATE_EVENT } from '../entities/EventType.mjs'
+import { BUTTON_CLICK_EVENT, ORDER_COMPLETED } from '../entities/EventSubType.mjs'
+import { KAFKA_BROKERS, KAFKA_CLIENT_ID, KAFKA_CLUSTER_IP, eventMapper } from './KafkaConstants.mjs'
 
 
 const kafka = new Kafka({
     clientId: KAFKA_CLIENT_ID,
-    brokers: KAFKA_BROKERS_PORT.split(",").map(port => `${KAFKA_CLUSTER_IP}:` + port)
+    brokers: KAFKA_BROKERS.split(",").map(port => `${KAFKA_CLUSTER_IP}:` + port)
 })
 const producer = kafka.producer()
 
-export default async function pushWebEventToKafkaBroker(message) {
+export default async function pushWebEventToKafkaBroker(eventType, data) {
+    let [topic, _] = eventMapper(eventType)
     await producer.connect()
     await producer.send({
-        topic: KAFKA_WEB_EVENTS_TOPIC,
-        messages: [
-            { value: message },
-        ],
+        topic: topic,
+        messages: [{ value: JSON.stringify(data) },],
     })
     await producer.disconnect()
 }
 
-pushWebEventToKafkaBroker("hello from the other side!")
+pushWebEventToKafkaBroker(CLICK_STREAM_EVENT, createKafkaEventPayload(BUTTON_CLICK_EVENT, "192.169.80.787", {}))
+pushWebEventToKafkaBroker(ORDER_STATE_UPDATE_EVENT, createKafkaEventPayload(ORDER_COMPLETED, "192.169.80.787", { "order_id": "CRN135" }))
