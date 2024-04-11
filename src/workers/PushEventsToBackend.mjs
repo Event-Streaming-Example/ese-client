@@ -1,7 +1,7 @@
 import { CLICK_STREAM_EVENT } from "../entities/EventType.mjs"
-import { makePostCall } from "../utilities/MakeApiCall.mjs";
 
 import dotenv from 'dotenv';
+import axios from "axios";
 
 dotenv.config();
 const BUFFERED_STORAGE_LIMIT = process.env.REACT_APP_BUFFERED_STORAGE_LIMIT
@@ -15,7 +15,7 @@ let bufferedStorage = []
 async function pushEvents(data) {
     let url = SERVER_IP + "/events"
     let headers = { 'Content-Type': 'application/json' }
-    await makePostCall(url, headers, data)
+    await axios.post(url, data, { headers: headers })
 }
 
 export default async function pushEventsToBackend(eventPayload) {

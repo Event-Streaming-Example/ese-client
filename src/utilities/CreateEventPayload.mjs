@@ -15,3 +15,12 @@ export default function createEventPayload(eventType, eventSubType, ip, data) {
         "data": data
     };
 }
+
+export function createKafkaEventPayload(eventSubType, ip, data) {
+    return {
+        "sub_type": eventSubType,
+        "ip": ip,
+        "client_timestamp": Date.now(),
+        "data": JSON.stringify(data)
+    }
+}
