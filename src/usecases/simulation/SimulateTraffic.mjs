@@ -1,10 +1,7 @@
+import { EVENT_COUNTER_HARD_LIMIT, EVENT_DELAY_IN_MILlIS } from '../../configs/SimulationConfigs.mjs';
 import simulateClickStreams from './SimulateClickStreams.mjs';
 import simulateDummyOrderLifeCycle from './SimulateDummyOrderLifeCycle.mjs';
-import dotenv from 'dotenv';
 
-dotenv.config();
-const EVENT_COUNTER_HARD_LIMIT = process.env.REACT_APP_EVENT_COUNTER_HARD_LIMIT;
-const EVENT_DELAY_IN_MILlIS = process.env.REACT_APP_EVENT_DELAY_IN_MILLIS;
 
 let eventCounter = 0
 let publisherInvocationCounter = 0

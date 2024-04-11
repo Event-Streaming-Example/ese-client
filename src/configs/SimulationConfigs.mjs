@@ -1,0 +1,2 @@
+export const EVENT_COUNTER_HARD_LIMIT = 70000
+export const EVENT_DELAY_IN_MILlIS = 1200

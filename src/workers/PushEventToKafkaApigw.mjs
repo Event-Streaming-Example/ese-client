@@ -4,7 +4,7 @@ import { CLICK_STREAM_EVENT, ORDER_STATE_UPDATE_EVENT } from "../entities/EventT
 import axios from "axios";
 
 import { KEY_PRESS_EVENT, ORDER_ALLOCATED } from "../entities/EventSubType.mjs";
-import { KAFKA_CLUSTER_IP, KAFKA_CLUSTER_PORT, eventMapper } from "./KafkaConstants.mjs";
+import { KAFKA_CLUSTER_IP, KAFKA_CLUSTER_PORT, eventMapper } from "../configs/KafkaConfigs.mjs";
 
 
 

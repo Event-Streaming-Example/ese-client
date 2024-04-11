@@ -1,12 +1,7 @@
+import { BUFFERED_PUSH_ENABLED, BUFFERED_STORAGE_LIMIT, SERVER_IP } from "../configs/ServerConfigs.mjs";
 import { CLICK_STREAM_EVENT } from "../entities/EventType.mjs"
-
-import dotenv from 'dotenv';
 import axios from "axios";
 
-dotenv.config();
-const BUFFERED_STORAGE_LIMIT = process.env.REACT_APP_BUFFERED_STORAGE_LIMIT
-const BUFFERED_PUSH_ENABLED = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
-const SERVER_IP = process.env.REACT_APP_SERVER_IP
 
 let bufferedStorage = []
 

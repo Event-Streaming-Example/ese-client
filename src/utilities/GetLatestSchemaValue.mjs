@@ -1,9 +1,5 @@
-import dotenv from 'dotenv';
 import axios from 'axios';
-
-dotenv.config();
-const KAFKA_SCHEMA_REGISTRY_IP = process.env.REACT_APP_KAFKA_SCHEMA_REGISTRY_IP
-const KAFKA_SCHEMA_REGISTRY_PORT = process.env.REACT_APP_KAFKA_SCHEMA_REGISTRY_PORT
+import { KAFKA_SCHEMA_REGISTRY_IP, KAFKA_SCHEMA_REGISTRY_PORT } from '../configs/KafkaConfigs.mjs';
 
 const URL = `http://${KAFKA_SCHEMA_REGISTRY_IP}:${KAFKA_SCHEMA_REGISTRY_PORT}`
 
