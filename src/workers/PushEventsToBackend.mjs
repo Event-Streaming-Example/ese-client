@@ -1,39 +1,38 @@
 import { CLICK_STREAM_EVENT } from "../entities/EventType.mjs"
-import axios from "axios"
+import { makePostCall } from "../utilities/MakeApiCall.mjs";
+
 import dotenv from 'dotenv';
 
 dotenv.config();
 const BUFFERED_STORAGE_LIMIT = process.env.REACT_APP_BUFFERED_STORAGE_LIMIT
-const server_url = process.env.REACT_APP_SERVER_URL
-const buffered_push = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
+const BUFFERED_PUSH_ENABLED = process.env.REACT_APP_BUFFERED_PUSH_ENABLED
+const SERVER_IP = process.env.REACT_APP_SERVER_IP
+
 let bufferedStorage = []
 
 // const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/"
 
-async function makeApiCall(url, payload) {
-    return axios.post(url, payload, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+async function pushEvents(data) {
+    let url = SERVER_IP + "/events"
+    let headers = { 'Content-Type': 'application/json' }
+    await makePostCall(url, headers, data)
 }
 
 export default async function pushEventsToBackend(eventPayload) {
-    if (buffered_push === 'true') {
+    if (BUFFERED_PUSH_ENABLED === 'true') {
         if (eventPayload.eventType === CLICK_STREAM_EVENT) {
             bufferedStorage.push(eventPayload)
             if (bufferedStorage.length >= BUFFERED_STORAGE_LIMIT) {
-                const bufferedData = bufferedStorage
+                await pushEvents({ "events": bufferedStorage })
+                console.log("Pushed events : ", bufferedStorage)
                 bufferedStorage = []
-                await makeApiCall(server_url + "/events", { "events": bufferedData })
-                console.log("Pushed events : ", bufferedData)
                 return 1
             } else {
                 return 0
             }
         }
     }
-    await makeApiCall(server_url + "/event", eventPayload)
+    await pushEvents(eventPayload)
     console.log("Pushed event : ", eventPayload)
     return 1
 }
