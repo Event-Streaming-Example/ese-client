@@ -1,17 +1,11 @@
-import { toTopicAndSchemaValue } from "../entities/EventType.mjs";
 import { createKafkaEventPayload } from "../utilities/CreateEventPayload.mjs";
 import { CLICK_STREAM_EVENT, ORDER_STATE_UPDATE_EVENT } from "../entities/EventType.mjs";
 
-import dotenv from 'dotenv';
 import axios from "axios";
+
 import { KEY_PRESS_EVENT, ORDER_ALLOCATED } from "../entities/EventSubType.mjs";
+import { KAFKA_CLUSTER_IP, KAFKA_CLUSTER_PORT, eventMapper } from "./KafkaConstants.mjs";
 
-dotenv.config();
-const KAFKA_CLUSTER_IP = process.env.REACT_APP_KAFKA_CLUSTER_IP
-const KAFKA_CLUSTER_PORT = process.env.REACT_APP_KAFKA_CLUSTER_APIGW_PORT
-
-const [CLICK_EVENT_TOPIC, CLICK_EVENT_SCHEMA] = await toTopicAndSchemaValue(CLICK_STREAM_EVENT)
-const [ORDER_EVENT_TOPIC, ORDER_EVENT_SCHEMA] = await toTopicAndSchemaValue(ORDER_STATE_UPDATE_EVENT)
 
 
 async function pushEvent(topic, schema, data) {
@@ -26,12 +20,8 @@ async function pushEvent(topic, schema, data) {
 
 
 export async function pushEventToKafkaApigw(eventType, data) {
-    if (eventType == CLICK_STREAM_EVENT) {
-        return pushEvent(CLICK_EVENT_TOPIC, CLICK_EVENT_SCHEMA, data)
-    }
-    else if (eventType == ORDER_STATE_UPDATE_EVENT) {
-        return pushEvent(ORDER_EVENT_TOPIC, ORDER_EVENT_SCHEMA, data)
-    }
+    let [topic, schema_value] = eventMapper(eventType)
+    pushEvent(topic, schema_value, data)
 }
 
 
