@@ -18,6 +18,6 @@ export const ORDER_EVENT_TOPIC = "order-events"
 
 
 export async function eventMapper(eventType) {
-    if (eventType == CLICK_STREAM_EVENT) return [CLICK_EVENT_TOPIC, (await getLatestSchemaValue(CLICK_EVENT_TOPIC))]
-    else if (eventType == ORDER_STATE_UPDATE_EVENT) return [ORDER_EVENT_TOPIC, (await getLatestSchemaValue(ORDER_EVENT_TOPIC))]
+    if (eventType === CLICK_STREAM_EVENT) return [CLICK_EVENT_TOPIC, (await getLatestSchemaValue(CLICK_EVENT_TOPIC))]
+    else if (eventType === ORDER_STATE_UPDATE_EVENT) return [ORDER_EVENT_TOPIC, (await getLatestSchemaValue(ORDER_EVENT_TOPIC))]
 }

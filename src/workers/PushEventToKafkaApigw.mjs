@@ -1,11 +1,5 @@
-import { createKafkaEventPayload } from "../utilities/CreateEventPayload.mjs";
-import { CLICK_STREAM_EVENT, ORDER_STATE_UPDATE_EVENT } from "../entities/EventType.mjs";
-
 import axios from "axios";
-
-import { KEY_PRESS_EVENT, ORDER_ALLOCATED } from "../entities/EventSubType.mjs";
 import { KAFKA_CLUSTER_IP, KAFKA_CLUSTER_PORT, eventMapper } from "../configs/KafkaConfigs.mjs";
-
 
 
 async function pushEvent(topic, schema, data) {
@@ -19,19 +13,14 @@ async function pushEvent(topic, schema, data) {
 }
 
 
-export async function pushEventToKafkaApigw(eventType, data) {
+export default async function pushEventToKafkaApigw(eventType, data) {
     try {
         let [topic, schema_value] = await eventMapper(eventType)
-        pushEvent(topic, schema_value, data)
+        let res = await pushEvent(topic, schema_value, data)
+        console.log(`Pushed to Kafka : ${res.status} | ${res.data}`)
         return 1
     } catch (error) {
         console.log(`ERROR : ${error}`)
         return 0
     }
 }
-
-
-
-pushEventToKafkaApigw(CLICK_STREAM_EVENT, createKafkaEventPayload(KEY_PRESS_EVENT, "192.169.80.787", {}))
-
-pushEventToKafkaApigw(ORDER_STATE_UPDATE_EVENT, createKafkaEventPayload(ORDER_ALLOCATED, "192.169.80.787", { "order_id": "CRN135" }))

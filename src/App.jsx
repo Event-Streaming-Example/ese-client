@@ -1,8 +1,11 @@
 import pushEventsToBackend from "./workers/PushEventsToBackend.mjs";
+import pushEventToKafkaApigw from "./workers/PushEventToKafkaApigw.mjs";
 import ClickStreamView from "./usecases/clickStream/ClickStreamView";
 import StateChangeView from "./usecases/stateChange/StateChangeView";
 import getDeviceIPAddress from "./utilities/GetDeviceIPAddress.mjs";
-import createEventPayload from "./utilities/CreateEventPayload.mjs";
+import createEventPayload, {
+  createKafkaEventPayload,
+} from "./utilities/CreateEventPayload.mjs";
 
 import React, { useState, useEffect } from "react";
 
@@ -15,7 +18,11 @@ function App() {
 
   function onEventCreationHandler(eventType, eventSubType, data) {
     const eventPayload = createEventPayload(eventType, eventSubType, ip, data);
+    const kafkaEventPayload = createKafkaEventPayload(eventSubType, ip, data);
+
     pushEventsToBackend(eventPayload);
+    pushEventToKafkaApigw(eventType, kafkaEventPayload); // cannot use kafkaJS in browser
+
     setEventLogs((prevLogs) => [...prevLogs, eventPayload]);
   }
 
@@ -34,7 +41,7 @@ function App() {
         <h3>Event logs</h3>
         <p>Total number of events generated : {eventLogs.length}</p>
         {eventLogs.map((it) => (
-          <p className="logs" key={it}>
+          <p className="logs" key={`${it}-${Math.random()}`}>
             {JSON.stringify(it)}
           </p>
         ))}
