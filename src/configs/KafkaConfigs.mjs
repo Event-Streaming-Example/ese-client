@@ -16,8 +16,10 @@ export const KAFKA_SCHEMA_REGISTRY_URL = `http://${process.env.REACT_APP_KAFKA_S
 export const CLICK_EVENT_TOPIC = "click-events"
 export const ORDER_EVENT_TOPIC = "order-events"
 
+const clickEventSchema = getLatestSchemaValue(CLICK_EVENT_TOPIC)
+const orderEventSchema = getLatestSchemaValue(ORDER_EVENT_TOPIC)
 
 export async function eventMapper(eventType) {
-    if (eventType === CLICK_STREAM_EVENT) return [CLICK_EVENT_TOPIC, (await getLatestSchemaValue(CLICK_EVENT_TOPIC))]
-    else if (eventType === ORDER_STATE_UPDATE_EVENT) return [ORDER_EVENT_TOPIC, (await getLatestSchemaValue(ORDER_EVENT_TOPIC))]
+    if (eventType === CLICK_STREAM_EVENT) return [CLICK_EVENT_TOPIC, (await clickEventSchema)]
+    else if (eventType === ORDER_STATE_UPDATE_EVENT) return [ORDER_EVENT_TOPIC, (await orderEventSchema)]
 }
